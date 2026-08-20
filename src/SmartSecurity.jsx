@@ -34,18 +34,32 @@ const BRAND = {
   name: "Smart Security",
   full: "Smart Security Detective Services",
   tagline: "Security & Investigation Services",
-  phone: "+91 80885 78863",
-  phoneHref: "tel:+918088578863",
-  whatsapp: "https://wa.me/918088578863",
+  est: "2026",
+
+  // The one contact number, used everywhere on the site
+  phone: "+91 99728 10990",
+  phoneHref: "tel:+919972810990",
+  whatsapp: "https://wa.me/919972810990",
+
   email: "info@smartsecuritydetectiveservices.in",
+
+  founder: {
+    name: "Shantha Rao Gujju",
+    role: "Founder & Managing Director",
+    initials: "SG",
+    // Put a real photo at public/photos/founder.jpg and set: photo: "/photos/founder.jpg"
+    photo: null,
+  },
+
   address: {
-    line1: "479/1, Tumkur Road",
-    line2: "Near Nagasandra Metro Station, opp. Shell Petrol Bunk",
-    line3: "M.S.R. Layout, Havanur Layout, Bagalagunte",
-    city: "Bengaluru, Karnataka 560073",
+    line1: "Property No. 536/5, Sy. No. 14, First Floor",
+    line2: "Accolades Badminton and Sports Academy",
+    line3: "MSR Layout, Nagasandra Post, 8th Mile",
+    line4: "Bangalore–Mumbai Highway (NH-4)",
+    city: "Bengaluru – 560073",
   },
   addressOneLine:
-    "479/1, Tumkur Rd, near Nagasandra Metro Station, opp. Shell Petrol Bunk, M.S.R. Layout, Havanur Layout, Bagalagunte, Bengaluru, Karnataka 560073",
+    "Property No. 536/5, Sy. No. 14, First Floor, Accolades Badminton and Sports Academy, MSR Layout, Nagasandra Post, 8th Mile, Bangalore-Mumbai Highway NH-4, Bengaluru 560073",
   hours: "Control room staffed 24 hours",
 };
 
@@ -228,11 +242,13 @@ function Frame({ src, alt, className = "", ratio = "4 / 5", parallax = 0 }) {
    CONTENT
    ================================================================== */
 
+// NOTE: these are conservative, checkable claims. If you want to show
+// roster size or number of sites, put your real figures here.
 const STATS = [
-  { to: 15, suffix: "+", label: "Years in Bengaluru", sub: "Since 2010" },
-  { to: 500, suffix: "+", label: "Trained personnel", sub: "On active roster" },
-  { to: 120, suffix: "+", label: "Sites protected", sub: "Across the city" },
   { to: 24, suffix: "/7", label: "Control room", sub: "Never unstaffed" },
+  { to: 8, suffix: "", label: "Services offered", sub: "Guarding to investigation" },
+  { to: 100, suffix: "%", label: "Police-verified staff", sub: "Before deployment" },
+  { to: 2026, suffix: "", label: "Established", sub: "Bengaluru" },
 ];
 
 const PILLARS = [
@@ -411,25 +427,23 @@ const GALLERY = [
   { src: PHOTO.cameraPost, alt: "Pole-mounted camera" },
 ];
 
-const TESTIMONIALS = [
-  {
-    quote:
-      "We changed agencies after the previous guards stopped turning up on Sundays. Fifteen months in, we have not had a single unfilled shift.",
-    name: "Secretary",
-    org: "Apartment association, Jalahalli",
-  },
-  {
-    quote:
-      "The supervisor visits at odd hours without telling anyone. That one habit changed how our night shift behaves.",
-    name: "Plant Manager",
-    org: "Manufacturing unit, Peenya",
-  },
-  {
-    quote:
-      "The verification work was quiet, quick and properly documented. We were given facts, not opinions.",
-    name: "HR Lead",
-    org: "IT services company, Bengaluru",
-  },
+/**
+ * FOUNDER
+ * The paragraphs below describe how the firm operates and what it commits
+ * to — deliberately, not claims about past experience, since those should
+ * be in the founder's own words. Rewrite freely; keep it first person.
+ */
+const FOUNDER_WORDS = [
+  "I started Smart Security Detective Services because too many people in Bengaluru were paying for a uniform and getting nothing standing behind it. No supervisor visiting the post. No report at the end of the month. No one answering the phone at two in the morning.",
+  "We built this firm the other way round. The supervision and the paperwork come first, and the uniform follows. Every officer is police-verified before deployment, every post has written duties, and every client has a number that reaches a person rather than a queue.",
+  "If something goes wrong at a site we cover, I would rather hear it from you directly than read about it later.",
+];
+
+const COMMITMENTS = [
+  { k: "01", t: "Verified before deployment", b: "No officer reaches your gate before their background and address checks are complete." },
+  { k: "02", t: "A supervisor who turns up", b: "Unannounced checks at odd hours, including nights and Sundays. That is the point of them." },
+  { k: "03", t: "Cover when someone is absent", b: "Leave and sickness are our problem to solve, not a gap you discover in the morning." },
+  { k: "04", t: "Written from day one", b: "Post orders, attendance and incident reports kept properly and shared whenever you ask." },
 ];
 
 const CREDENTIALS = [
@@ -466,11 +480,91 @@ function Icon({ name }) {
   );
 }
 
-function ShieldMark() {
+/**
+ * The company seal, rebuilt as SVG so it stays sharp at every size.
+ * withText={false} drops the circular lettering for small placements
+ * such as the navigation bar, where it would be unreadable anyway.
+ */
+let sealId = 0;
+function SealLogo({ withText = true, className = "" }) {
+  const uid = useRef("seal" + ++sealId).current;
+
   return (
-    <svg viewBox="0 0 32 38" className="ss-mark" aria-hidden="true">
-      <path d="M16 1 L31 6.5 V19 C31 28 24.5 33.5 16 37 C7.5 33.5 1 28 1 19 V6.5 Z" />
-      <path className="ss-mark-tick" d="M10 19 L14.5 23.5 L23 14" />
+    <svg
+      viewBox="0 0 200 200"
+      className={"ss-seal " + className}
+      role="img"
+      aria-label={BRAND.full + " logo"}
+    >
+      <defs>
+        <linearGradient id={uid + "-ring"} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#EBCE84" />
+          <stop offset="28%" stopColor="#B8901F" />
+          <stop offset="55%" stopColor="#F3E1A6" />
+          <stop offset="78%" stopColor="#C9A227" />
+          <stop offset="100%" stopColor="#8F6E14" />
+        </linearGradient>
+        <linearGradient id={uid + "-shield"} x1="0.15" y1="0" x2="0.9" y2="1">
+          <stop offset="0%" stopColor="#F2DEA0" />
+          <stop offset="38%" stopColor="#D9B23F" />
+          <stop offset="72%" stopColor="#C29520" />
+          <stop offset="100%" stopColor="#A57C16" />
+        </linearGradient>
+        <path id={uid + "-top"} d="M 26,100 A 74,74 0 0 1 174,100" fill="none" />
+        <path id={uid + "-bot"} d="M 32,100 A 68,68 0 0 0 168,100" fill="none" />
+      </defs>
+
+      {/* rings */}
+      <circle cx="100" cy="100" r="95" fill="#FFFFFF" />
+      <circle
+        cx="100"
+        cy="100"
+        r="93"
+        fill="none"
+        stroke={"url(#" + uid + "-ring)"}
+        strokeWidth="5"
+      />
+      <circle
+        cx="100"
+        cy="100"
+        r="80"
+        fill="none"
+        stroke={"url(#" + uid + "-ring)"}
+        strokeWidth="1.4"
+      />
+
+      {/* circular lettering */}
+      {withText && (
+        <g className="ss-seal-text" fill="#8A6A12">
+          <text fontSize="12.4" letterSpacing="2.6">
+            <textPath href={"#" + uid + "-top"} startOffset="50%" textAnchor="middle">
+              SMART SECURITY DETECTIVES
+            </textPath>
+          </text>
+          <text fontSize="11.4" letterSpacing="2.6">
+            <textPath href={"#" + uid + "-bot"} startOffset="50%" textAnchor="middle">
+              SERVICES • EST. {BRAND.est}
+            </textPath>
+          </text>
+        </g>
+      )}
+
+      {/* shield */}
+      <path
+        d="M100 55 L133 67 V101 C133 121 119 133 100 141 C81 133 67 121 67 101 V67 Z"
+        fill={"url(#" + uid + "-shield)"}
+      />
+
+      {/* magnifying glass */}
+      <g
+        fill="none"
+        stroke="#3B2E0C"
+        strokeWidth="3.1"
+        strokeLinecap="round"
+      >
+        <circle cx="96" cy="97" r="13.5" />
+        <line x1="106" y1="107" x2="117" y2="119" />
+      </g>
     </svg>
   );
 }
@@ -521,6 +615,7 @@ function Nav() {
     ["Why security", "#why"],
     ["Services", "#services"],
     ["Investigation", "#investigation"],
+    ["Founder", "#founder"],
     ["How we work", "#process"],
     ["Contact", "#contact"],
   ];
@@ -534,7 +629,7 @@ function Nav() {
     >
       <div className="ss-shell ss-nav-inner">
         <a className="ss-brand" href="#top">
-          <ShieldMark />
+          <SealLogo withText={false} />
           <span className="ss-brand-text">
             SMART SECURITY
             <span className="ss-brand-sub">DETECTIVE SERVICES</span>
@@ -985,27 +1080,61 @@ function Gallery() {
   );
 }
 
-function Testimonials() {
+function Founder() {
+  const { name, role, initials, photo } = BRAND.founder;
+
   return (
-    <section className="ss-section ss-quotes-wrap">
-      <div className="ss-shell">
-        <Reveal className="ss-head">
-          <Eyebrow>Client feedback</Eyebrow>
-          <motion.h2 className="ss-h2" variants={riseIn}>
-            References available on request.
-          </motion.h2>
+    <section className="ss-section ss-founder-wrap" id="founder">
+      <div className="ss-shell ss-founder-grid">
+        <Reveal className="ss-founder-media" gap={0.12}>
+          <motion.div className="ss-portrait" variants={zoomIn}>
+            {photo ? (
+              <img src={photo} alt={name} />
+            ) : (
+              <div className="ss-portrait-mono" aria-hidden="true">
+                <span>{initials}</span>
+              </div>
+            )}
+            <motion.div
+              className="ss-portrait-seal"
+              initial={{ opacity: 0, scale: 0.8, rotate: -18 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={VIEW}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.25 }}
+            >
+              <SealLogo />
+            </motion.div>
+          </motion.div>
         </Reveal>
 
-        <Reveal className="ss-quotes" gap={0.1}>
-          {TESTIMONIALS.map((t) => (
-            <motion.figure className="ss-quote" key={t.org} variants={riseIn}>
-              <blockquote>{t.quote}</blockquote>
-              <figcaption>
-                <strong>{t.name}</strong>
-                <span>{t.org}</span>
-              </figcaption>
-            </motion.figure>
+        <Reveal className="ss-founder-copy" gap={0.1}>
+          <Eyebrow>From the founder</Eyebrow>
+          <motion.h2 className="ss-h2" variants={riseIn}>
+            Why this firm exists.
+          </motion.h2>
+
+          {FOUNDER_WORDS.map((para, i) => (
+            <motion.p className="ss-founder-p" key={i} variants={riseIn}>
+              {para}
+            </motion.p>
           ))}
+
+          <motion.div className="ss-signature" variants={riseIn}>
+            <span className="ss-signature-name">{name}</span>
+            <span className="ss-signature-role">{role}</span>
+          </motion.div>
+
+          <motion.div className="ss-commit" variants={riseIn}>
+            {COMMITMENTS.map((c) => (
+              <div className="ss-commit-item" key={c.k}>
+                <span className="ss-commit-k">{c.k}</span>
+                <div>
+                  <strong>{c.t}</strong>
+                  <p>{c.b}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
         </Reveal>
       </div>
     </section>
@@ -1060,6 +1189,8 @@ function Contact() {
                 {BRAND.address.line2}
                 <br />
                 {BRAND.address.line3}
+                <br />
+                {BRAND.address.line4}
                 <br />
                 {BRAND.address.city}
               </span>
@@ -1187,7 +1318,7 @@ function Footer() {
         <div className="ss-footer-top">
           <div className="ss-footer-brand">
             <a className="ss-brand" href="#top">
-              <ShieldMark />
+              <SealLogo withText={false} />
               <span className="ss-brand-text">
                 SMART SECURITY
                 <span className="ss-brand-sub">DETECTIVE SERVICES</span>
@@ -1223,8 +1354,9 @@ function Footer() {
                 {BRAND.address.line1}, {BRAND.address.line2}
               </span>
               <span>
-                {BRAND.address.line3}, {BRAND.address.city}
+                {BRAND.address.line3}, {BRAND.address.line4}
               </span>
+              <span>{BRAND.address.city}</span>
             </div>
           </div>
         </div>
@@ -1264,7 +1396,7 @@ export default function SmartSecurity() {
           <Process />
           <Sectors />
           <Gallery />
-          <Testimonials />
+          <Founder />
           <CallBand />
           <Contact />
         </main>
@@ -1377,8 +1509,8 @@ const CSS = `
 .ss-nav.is-solid{border-color:var(--line);background:rgba(255,255,255,.92);}
 .ss-nav-inner{display:flex;align-items:center;gap:28px;padding-top:14px;padding-bottom:14px;}
 .ss-brand{display:flex;align-items:center;gap:11px;}
-.ss-mark{width:29px;height:34px;flex:none;fill:none;stroke:var(--ink);stroke-width:2;}
-.ss-mark-tick{stroke:var(--amber);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;}
+.ss-seal{width:42px;height:42px;flex:none;display:block;}
+.ss-seal-text{font-family:var(--display);font-weight:600;}
 .ss-brand-text{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.06em;
   line-height:1;display:flex;flex-direction:column;gap:4px;color:var(--ink);}
 .ss-brand-sub{font-family:var(--mono);font-weight:400;font-size:.52rem;letter-spacing:.22em;
@@ -1534,6 +1666,38 @@ const CSS = `
 .ss-gallery-wrap{padding:112px 0;background:var(--paper);}
 .ss-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 
+/* founder */
+.ss-founder-wrap{background:var(--white);}
+.ss-founder-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:start;}
+.ss-founder-media{position:sticky;top:110px;}
+.ss-portrait{position:relative;border-radius:10px;overflow:visible;}
+.ss-portrait img{border-radius:10px;aspect-ratio:4 / 5;object-fit:cover;
+  box-shadow:0 34px 60px -34px rgba(12,27,42,.55);}
+.ss-portrait-mono{aspect-ratio:4 / 5;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(155deg,var(--ink),var(--navy));
+  box-shadow:0 34px 60px -34px rgba(12,27,42,.55);position:relative;overflow:hidden;}
+.ss-portrait-mono::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(238,155,18,.22),transparent 60%);}
+.ss-portrait-mono span{font-family:var(--display);font-weight:800;font-size:5.4rem;
+  letter-spacing:.06em;color:rgba(255,255,255,.9);position:relative;}
+.ss-portrait-seal{position:absolute;right:-26px;bottom:-26px;width:116px;height:116px;
+  border-radius:50%;background:#fff;box-shadow:0 18px 36px -18px rgba(12,27,42,.5);}
+.ss-portrait-seal .ss-seal{width:116px;height:116px;}
+
+.ss-founder-p{color:var(--slate);font-size:1.02rem;line-height:1.72;margin-top:18px;max-width:60ch;}
+.ss-signature{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:5px;}
+.ss-signature-name{font-family:var(--display);font-weight:700;font-size:1.3rem;
+  letter-spacing:-.02em;color:var(--ink);}
+.ss-signature-role{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--slate);}
+.ss-commit{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;}
+.ss-commit-item{display:flex;gap:14px;background:var(--paper);border:1px solid var(--line);
+  border-radius:8px;padding:20px 18px;}
+.ss-commit-k{font-family:var(--mono);font-size:.68rem;color:var(--amber);flex:none;padding-top:2px;}
+.ss-commit-item strong{display:block;font-size:.98rem;letter-spacing:-.01em;}
+.ss-commit-item p{color:var(--slate);font-size:.88rem;line-height:1.58;margin-top:6px;}
+
 /* quotes */
 .ss-quotes-wrap{background:var(--white);}
 .ss-quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
@@ -1586,7 +1750,6 @@ a.ss-info-row:hover strong{color:var(--amber);}
 
 /* footer */
 .ss-footer{background:var(--ink);color:#A9B8C7;padding:70px 0 30px;}
-.ss-footer .ss-mark{stroke:#fff;}
 .ss-footer .ss-brand-text{color:#fff;}
 .ss-footer .ss-brand-sub{color:#8FA0B1;}
 .ss-footer-top{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;padding-bottom:48px;
@@ -1614,6 +1777,8 @@ a.ss-info-row:hover strong{color:var(--amber);}
   .ss-hero-media{min-height:440px;max-width:520px;}
   .ss-cards{grid-template-columns:repeat(2,1fr);}
   .ss-pillars,.ss-quotes{grid-template-columns:1fr;}
+  .ss-founder-grid{grid-template-columns:1fr;gap:46px;}
+  .ss-founder-media{position:static;max-width:400px;}
   .ss-timeline-steps{grid-template-columns:repeat(2,1fr);row-gap:34px;}
   .ss-gallery{grid-template-columns:repeat(2,1fr);}
   .ss-footer-top{grid-template-columns:1fr;gap:40px;}
@@ -1629,7 +1794,9 @@ a.ss-info-row:hover strong{color:var(--amber);}
   .ss-stat{padding:30px 18px;border-bottom:1px solid rgba(255,255,255,.12);}
   .ss-stat:nth-child(2n){border-right:0;}
   .ss-stat:first-child{padding-left:18px;}
-  .ss-cards,.ss-gallery,.ss-form{grid-template-columns:1fr;}
+  .ss-cards,.ss-gallery,.ss-form,.ss-commit{grid-template-columns:1fr;}
+  .ss-portrait-seal{width:84px;height:84px;right:-12px;bottom:-18px;}
+  .ss-portrait-seal .ss-seal{width:84px;height:84px;}
   .ss-timeline-steps{grid-template-columns:1fr;}
   .ss-hero-media{min-height:380px;}
   .ss-hero-big{width:100%;}
